@@ -1,0 +1,346 @@
+{
+  "db": "PostgreSQL",
+  "06558f1bbc8a7109944dea770dbabbe09739641c8a353d56b81e9f194058ee3e": {
+    "query": "SELECT * FROM daily_stats WHERE user_id = $1 AND date = $2",
+    "describe": {
+      "columns": [
+        {
+          "ordinal": 0,
+          "name": "id",
+          "type_info": "Int8"
+        },
+        {
+          "ordinal": 1,
+          "name": "user_id",
+          "type_info": "Int8"
+        },
+        {
+          "ordinal": 2,
+          "name": "chat_id",
+          "type_info": "Int8"
+        },
+        {
+          "ordinal": 3,
+          "name": "message_count",
+          "type_info": "Int8"
+        },
+        {
+          "ordinal": 4,
+          "name": "date",
+          "type_info": "Timestamptz"
+        }
+      ],
+      "parameters": {
+        "Left": [
+          "Int8",
+          "Timestamptz"
+        ]
+      },
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    }
+  },
+  "093bd967fa665944e015c2c5b50ed16182e1650b21e3948fb805986c2310a463": {
+    "query": "\n            SELECT daily_stats.user_id, daily_stats.message_count, users.first_name \n            FROM daily_stats\n            INNER JOIN users ON daily_stats.user_id = users.user_id\n            WHERE chat_id = $1 AND date = $2\n            ORDER BY message_count DESC \n        ",
+    "describe": {
+      "columns": [
+        {
+          "ordinal": 0,
+          "name": "user_id",
+          "type_info": "Int8"
+        },
+        {
+          "ordinal": 1,
+          "name": "message_count",
+          "type_info": "Int8"
+        },
+        {
+          "ordinal": 2,
+          "name": "first_name",
+          "type_info": "Text"
+        }
+      ],
+      "parameters": {
+        "Left": [
+          "Int8",
+          "Timestamptz"
+        ]
+      },
+      "nullable": [
+        false,
+        false,
+        false
+      ]
+    }
+  },
+  "1f612b9033ba9ff47bcfe182f04c913a240359154f13cee1b2e93687b6dd497c": {
+    "query": "SELECT * FROM users WHERE user_id = $1",
+    "describe": {
+      "columns": [
+        {
+          "ordinal": 0,
+          "name": "id",
+          "type_info": "Int8"
+        },
+        {
+          "ordinal": 1,
+          "name": "user_id",
+          "type_info": "Int8"
+        },
+        {
+          "ordinal": 2,
+          "name": "first_name",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 3,
+          "name": "last_name",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 4,
+          "name": "username",
+          "type_info": "Text"
+        }
+      ],
+      "parameters": {
+        "Left": [
+          "Int8"
+        ]
+      },
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    }
+  },
+  "3940f5d6d00d79211743a24bf40a1a82b77929b9ad73ca20192619f76370e9b9": {
+    "query": "SELECT * FROM chats WHERE chat_id = $1",
+    "describe": {
+      "columns": [
+        {
+          "ordinal": 0,
+          "name": "id",
+          "type_info": "Int8"
+        },
+        {
+          "ordinal": 1,
+          "name": "chat_id",
+          "type_info": "Int8"
+        },
+        {
+          "ordinal": 2,
+          "name": "title",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 3,
+          "name": "is_validated",
+          "type_info": "Bool"
+        }
+      ],
+      "parameters": {
+        "Left": [
+          "Int8"
+        ]
+      },
+      "nullable": [
+        false,
+        false,
+        false,
+        false
+      ]
+    }
+  },
+  "3a41fb8af9f608ce567a23925fe675c7726398ab6980dd4ac345117b8a9f793c": {
+    "query": "SELECT * FROM chats",
+    "describe": {
+      "columns": [
+        {
+          "ordinal": 0,
+          "name": "id",
+          "type_info": "Int8"
+        },
+        {
+          "ordinal": 1,
+          "name": "chat_id",
+          "type_info": "Int8"
+        },
+        {
+          "ordinal": 2,
+          "name": "title",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 3,
+          "name": "is_validated",
+          "type_info": "Bool"
+        }
+      ],
+      "parameters": {
+        "Left": []
+      },
+      "nullable": [
+        false,
+        false,
+        false,
+        false
+      ]
+    }
+  },
+  "4639d68737c23ec1cf750cc690195ee5c1899750f30335cbe686df51102b6287": {
+    "query": "\n                INSERT INTO users (user_id, first_name, last_name, username) \n                VALUES ($1, $2, $3, $4) \n                RETURNING *\n            ",
+    "describe": {
+      "columns": [
+        {
+          "ordinal": 0,
+          "name": "id",
+          "type_info": "Int8"
+        },
+        {
+          "ordinal": 1,
+          "name": "user_id",
+          "type_info": "Int8"
+        },
+        {
+          "ordinal": 2,
+          "name": "first_name",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 3,
+          "name": "last_name",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 4,
+          "name": "username",
+          "type_info": "Text"
+        }
+      ],
+      "parameters": {
+        "Left": [
+          "Int8",
+          "Text",
+          "Text",
+          "Text"
+        ]
+      },
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    }
+  },
+  "b13ef2580edd7b8b636f4a0016a599c5d2d85d2b74e5244b8b289ab56cc9c285": {
+    "query": "\n                INSERT INTO chats (chat_id, title) \n                VALUES ($1, $2) \n                RETURNING *\n            ",
+    "describe": {
+      "columns": [
+        {
+          "ordinal": 0,
+          "name": "id",
+          "type_info": "Int8"
+        },
+        {
+          "ordinal": 1,
+          "name": "chat_id",
+          "type_info": "Int8"
+        },
+        {
+          "ordinal": 2,
+          "name": "title",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 3,
+          "name": "is_validated",
+          "type_info": "Bool"
+        }
+      ],
+      "parameters": {
+        "Left": [
+          "Int8",
+          "Text"
+        ]
+      },
+      "nullable": [
+        false,
+        false,
+        false,
+        false
+      ]
+    }
+  },
+  "b24affcd9e9be683ff219becb1b4d5046f8ba5b85332cf2e22d6d7b7e11d1d65": {
+    "query": "\n                INSERT INTO daily_stats (user_id, chat_id, message_count, date) \n                VALUES ($1, $2, $3, $4)\n            ",
+    "describe": {
+      "columns": [],
+      "parameters": {
+        "Left": [
+          "Int8",
+          "Int8",
+          "Int8",
+          "Timestamptz"
+        ]
+      },
+      "nullable": []
+    }
+  },
+  "ce546a8b215d026b675791655702577e40e9cadbf4954e6d3d6a7f2b5973dada": {
+    "query": "\n            SELECT daily_stats.user_id, users.first_name, (SUM(daily_stats.message_count) + old_stats.message_count) as message_count\n            FROM daily_stats\n            INNER JOIN users ON daily_stats.user_id = users.user_id\n            INNER JOIN old_stats ON daily_stats.user_id = old_stats.user_id\n            WHERE daily_stats.chat_id = $1\n            GROUP BY daily_stats.user_id, users.first_name, old_stats.message_count\n            ORDER BY message_count DESC \n        ",
+    "describe": {
+      "columns": [
+        {
+          "ordinal": 0,
+          "name": "user_id",
+          "type_info": "Int8"
+        },
+        {
+          "ordinal": 1,
+          "name": "first_name",
+          "type_info": "Text"
+        },
+        {
+          "ordinal": 2,
+          "name": "message_count",
+          "type_info": "Numeric"
+        }
+      ],
+      "parameters": {
+        "Left": [
+          "Int8"
+        ]
+      },
+      "nullable": [
+        false,
+        false,
+        null
+      ]
+    }
+  },
+  "f13f6889991e4648bf3b75d5513746620aae02bcd8d35b678d977266ebab8e7e": {
+    "query": "\n                UPDATE daily_stats \n                SET message_count = $1\n                WHERE user_id = $2 AND date = $3\n            ",
+    "describe": {
+      "columns": [],
+      "parameters": {
+        "Left": [
+          "Int8",
+          "Int8",
+          "Timestamptz"
+        ]
+      },
+      "nullable": []
+    }
+  }
+}
